@@ -1,0 +1,8 @@
+{
+  "name": "AI Life Saver Alert",
+  "description": "An AI mental wellbeing companion and empathetic crisis support doctor with automated escalation and safety features.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,116 @@
+{
+  "entities": {
+    "Session": {
+      "title": "Session",
+      "description": "User conversation session containing messages and mood entries",
+      "type": "object",
+      "properties": {
+        "messages": {
+          "type": "array",
+          "description": "List of message exchange history"
+        },
+        "moods": {
+          "type": "array",
+          "description": "List of tracked mood entries"
+        },
+        "patientId": {
+          "type": "string",
+          "description": "The associated patient ID"
+        }
+      }
+    },
+    "Patient": {
+      "title": "Patient",
+      "description": "Registered patient details for emergency tracking",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "emergencyContactName": {
+          "type": "string"
+        },
+        "emergencyContactPhone": {
+          "type": "string"
+        },
+        "passcode": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "phone", "emergencyContactName", "emergencyContactPhone", "passcode"]
+    },
+    "AuditLog": {
+      "title": "Audit Log",
+      "description": "Emergency crisis audit trail log",
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["emergency_escalation"]
+        }
+      },
+      "required": ["sessionId", "timestamp", "reason", "type"]
+    },
+    "WebhookLog": {
+      "title": "Webhook Log",
+      "description": "Live webhook diagnostic log for incoming WhatsApp messages",
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "contentType": {
+          "type": "string"
+        },
+        "userAgent": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "firestore": {
+    "sessions/{sessionId}": {
+      "schema": "Session",
+      "description": "Storage for active chat sessions"
+    },
+    "patients/{patientId}": {
+      "schema": "Patient",
+      "description": "Registered patient information"
+    },
+    "audit_logs/{logId}": {
+      "schema": "AuditLog",
+      "description": "Storage for crisis escalation logs"
+    },
+    "webhook_logs/{logId}": {
+      "schema": "WebhookLog",
+      "description": "Storage for webhook diagnostic logs"
+    }
+  }
+}

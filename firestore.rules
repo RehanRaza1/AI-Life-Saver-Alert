@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Sessions are read/written by the server running as unauthenticated client.
+    match /sessions/{sessionId} {
+      allow read, write: if true;
+    }
+
+    // Audit logs are written by the server on crisis escalation.
+    match /audit_logs/{logId} {
+      allow read, write: if true;
+    }
+
+    // Webhook logs are read/written by the server to inspect live Twilio hits.
+    match /webhook_logs/{logId} {
+      allow read, write: if true;
+    }
+
+    // Patients are read/written by the server/client
+    match /patients/{patientId} {
+      allow read, write: if true;
+    }
+
+    // Twilio settings are configured and retrieved by the server/client
+    match /twilio_settings/{settingId} {
+      allow read, write: if true;
+    }
+  }
+}
+
